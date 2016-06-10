@@ -3,7 +3,6 @@ import expresssession from 'express-session';
 import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
-import request from 'superagent';
 import bodyParser from 'body-parser';
 import { APP_SECRET } from '../outCalls/config';
 const passport = require('../outCalls/auth');

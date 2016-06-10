@@ -62,7 +62,11 @@ class UserProfile extends React.Component {
   }
 
   goToDeployPage(repo) {
-    browserHistory.push('/user/repo/' + repo.name);
+    if (this.state.user.login != repo.owner.login) {
+      toastr.error("Support for shared repos not yet implemented");
+    } else {
+      browserHistory.push('/user/repo/' + repo.name);
+    }
   }
 
   getAccessType(repo) {
