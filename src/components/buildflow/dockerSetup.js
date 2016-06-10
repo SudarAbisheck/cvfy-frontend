@@ -34,7 +34,6 @@ class DockerSetup extends React.Component {
   }
 
   render() {
-    console.log(this.state.data);
     return (
       <div className="ui sixteen column centered grid">
         <div className="ten wide stackable column">

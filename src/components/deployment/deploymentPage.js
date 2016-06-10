@@ -27,6 +27,7 @@ class DeploymentPage extends React.Component {
     };
     this.toggleShow = this.toggleShow.bind(this);
     this.toggleDockerModalShow = this.toggleDockerModalShow.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   componentWillMount() {
@@ -37,7 +38,7 @@ class DeploymentPage extends React.Component {
         this.toggleShow();
       }).then(() => {
           checkDockerfile(this.props.params.repoId).then(status => {
-            toastr.success('docker-compose.yml found')
+            toastr.success('docker-compose.yml found');
             startDeployment(socket, status).then(() => {
               toastr.success('Started deployment for: ' + this.state.currentRepo.name);
             }).catch(err => {
@@ -68,6 +69,10 @@ class DeploymentPage extends React.Component {
     this.setState({showDockerModalState: !this.state.showDockerModalState});
   }
 
+  goBack() {
+    browserHistory.push('/');
+  }
+
   render() {
     const action = [
       <FlatButton
@@ -75,7 +80,7 @@ class DeploymentPage extends React.Component {
         key="1"
         primary
         keyboardFocused
-        onTouchTap={this.toggleDockerModalShow}
+        onTouchTap={this.goBack}
       />
     ];
 
@@ -92,6 +97,7 @@ class DeploymentPage extends React.Component {
         <div className="sixteen wide column stretched row" style={{visibility: this.state.showOutput}}>
           <div className="row" >
             <h1>{this.state.currentRepo.name}</h1>
+            
           </div>
 
           <div className="ui horizontal divider row" >
@@ -113,7 +119,7 @@ class DeploymentPage extends React.Component {
           actions={action}
           modal
           open={this.state.showDockerModalState}
-          onRequestClose={this.toggleDockerModalShow}>
+          onRequestClose={this.goBack}>
           We require docker-compose.yml to proceed with the deployment.
           Please see <Link to="/about">documentation</Link>.
         </Dialog>

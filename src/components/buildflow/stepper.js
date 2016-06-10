@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentForward from 'material-ui/svg-icons/content/forward';
 import DockerSetup from './dockerSetup';
+import InputComponentsList from './inputComponentsList';
 
 class HorizontalLinearStepper extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class HorizontalLinearStepper extends React.Component {
       case 0:
         return <DockerSetup socket={this.socket}/>;
       case 1:
-        return 'Configure Input component';
+        return <InputComponentsList />;
       case 2:
         return 'Configure Output component';
       case 3:
@@ -65,25 +66,16 @@ class HorizontalLinearStepper extends React.Component {
           <Step>
             <StepLabel>Demo</StepLabel>
           </Step>
+
+          <FloatingActionButton
+            onMouseDown={this.handleNext}>
+            <ContentForward />
+          </FloatingActionButton>
+
         </Stepper>
         <div>
           <div className="row">
             {this.getStepContent(stepIndex)}
-          </div>
-          <div>
-            <div style={{marginTop: 12}}>
-              <FlatButton
-                label="Back"
-                disabled={stepIndex === 0}
-                onTouchTap={this.handlePrev}
-                style={{marginRight: 12}}
-              />
-              <RaisedButton
-                label={stepIndex === 2 ? 'Finish' : 'Next'}
-                primary
-                onTouchTap={this.handleNext}
-              />
-            </div>
           </div>
         </div>
       </div>
