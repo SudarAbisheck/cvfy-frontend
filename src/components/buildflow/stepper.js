@@ -4,6 +4,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentForward from 'material-ui/svg-icons/content/forward';
 import DockerSetup from './dockerSetup';
 import InputComponentsList from './inputComponentsList';
+import OutputComponentsList from './outputComponentsList';
+import DemoComponent from './demo';
 
 class HorizontalLinearStepper extends React.Component {
   constructor(props) {
@@ -38,11 +40,11 @@ class HorizontalLinearStepper extends React.Component {
       case 0:
         return <DockerSetup socket={this.socket}/>;
       case 1:
-        return <InputComponentsList />;
+        return <InputComponentsList socket={this.socket}/>;
       case 2:
-        return 'Configure Output component';
+        return <OutputComponentsList socket={this.socket}/>;
       case 3:
-        return 'Demo';
+        return (<DemoComponent socket={this.socket}/>);
       default:
         return 'tocttou was here!';
     }

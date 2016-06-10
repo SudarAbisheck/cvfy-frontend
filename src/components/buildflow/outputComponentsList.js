@@ -8,18 +8,16 @@ import toastr from 'toastr';
 
 toastr.options.closeButton = true;
 
-class InputComponentsList extends React.Component {
+class OutputComponentsList extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       showDockerModalState: false,
-      inputFieldName: '',
-      inputTarget: ''
+      outputFieldName: ''
     };
     this.socket = props.socket;
     this.toggleDockerModalShow = this.toggleDockerModalShow.bind(this);
-    this.updateInputName = this.updateInputName.bind(this);
-    this.updateInputTarget = this.updateInputTarget.bind(this);
+    this.updateOutputName = this.updateOutputName.bind(this);
   }
 
   componentWillMount() {
@@ -29,12 +27,8 @@ class InputComponentsList extends React.Component {
     this.setState({showDockerModalState: !this.state.showDockerModalState});
   }
 
-  updateInputName(event) {
-    this.setState({inputFieldName: event.target.value});
-  }
-
-  updateInputTarget(event) {
-    this.setState({inputTarget: event.target.value});
+  updateOutputName(event) {
+    this.setState({outputFieldName: event.target.value});
   }
 
   render() {
@@ -51,11 +45,11 @@ class InputComponentsList extends React.Component {
     return (
       <div>
         <RepoCard
-          header={'Input Form'}
+          header={'Image Output Component'}
           key={1}
           heading="Props"
-          accessType={this.state.inputFieldName || "Type: File Upload - Name: None"}
-          Language={this.state.inputTarget || "Target: None"}
+          accessType={this.state.outputFieldName || "Type: Image Display - ID: None"}
+          Language=""
           button_label="Modify"
           onDeployClick={() => this.toggleDockerModalShow()}/>
         <Dialog
@@ -64,25 +58,18 @@ class InputComponentsList extends React.Component {
           modal
           open={this.state.showDockerModalState}
           onRequestClose={this.toggleDockerModalShow}>
-          <input type="file"
-                 name={this.state.inputFieldName} /> ==> &nbsp;&nbsp;
           <TextField
-            hintText="Name of the file upload field"
+            hintText="id of the image"
             type="text"
-            value={this.state.inputFieldName}
-            onChange={this.updateInputName} /><br />
-          <TextField
-            hintText="Url of backend code"
-            type="text"
-            value={this.state.inputTarget}
-            onChange={this.updateInputTarget} /><br />
+            value={this.state.outputFieldName}
+            onChange={this.updateOutputName} /><br />
         </Dialog>
       </div>);
   }
 }
 
-InputComponentsList.propTypes = {
+OutputComponentsList.propTypes = {
   socket: PropTypes.object.isRequired
 };
 
-export default InputComponentsList;
+export default OutputComponentsList;
